@@ -5,7 +5,9 @@ window.addEventListener('load', () => {
     setTimeout(() => loader.style.display = 'none', 500);
 });
 
-// Fonction de test
+// 2. Fonction de test simple
 function saluer() {
-    document.getElementById('message').innerText = "🚀 Application réactive et prête !";
+    const messageElement = document.getElementById('message');
+    messageElement.innerHTML = "✨ L'application répond parfaitement !";
+    messageElement.style.color = "#27ae60";
 }
