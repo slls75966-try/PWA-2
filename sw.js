@@ -1,7 +1,7 @@
 /**
  * SW.JS - Service Worker (Gestion du Cache)
  */
-const cacheName = 'v1';
+const cacheName = 'v2';
 const cacheAssets = [
     'index.html',
     'app.js',
