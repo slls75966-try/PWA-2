@@ -3,7 +3,7 @@
  */
 
 // CHANGEZ LA VERSION ICI À CHAQUE MODIFICATION (ex: v1, v2, v3...)
-const cacheName = 'v3.1'; 
+const cacheName = 'v1'; 
 
 const cacheAssets = [
     'index.html',
