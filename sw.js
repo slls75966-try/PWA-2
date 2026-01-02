@@ -1,5 +1,10 @@
-// 1. Nom du cache et fichiers à mettre en cache
-const cacheName = 'v2'; // Changez ceci en 'v2', 'v3', etc. pour forcer la mise à jour
+/**
+ * SW.JS - Service Worker (Gestion du Cache)
+ */
+
+// CHANGEZ LA VERSION ICI À CHAQUE MODIFICATION (ex: v1, v2, v3...)
+const cacheName = 'v2'; 
+
 const cacheAssets = [
     'index.html',
     'app.js',
@@ -9,27 +14,26 @@ const cacheAssets = [
     'images/icon.png'
 ];
 
-// 2. Événement d'installation : Mise en cache des fichiers
+// Installation : Téléchargement des fichiers
 self.addEventListener('install', e => {
-    console.log('Service Worker: Installation...');
-    self.skipWaiting(); // Force le nouveau SW à s'activer sans attendre
+    console.log('SW: Installation...');
+    // Force le nouveau SW à prendre le contrôle immédiatement
+    self.skipWaiting(); 
     e.waitUntil(
         caches.open(cacheName).then(cache => {
-            console.log('Service Worker: Mise en cache des fichiers actuels');
             return cache.addAll(cacheAssets);
         })
     );
 });
 
-// 3. Événement d'activation : Nettoyage des anciens caches
+// Activation : Nettoyage des vieux caches
 self.addEventListener('activate', e => {
-    console.log('Service Worker: Activation et nettoyage...');
+    console.log('SW: Activation et nettoyage...');
     e.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cache => {
                     if (cache !== cacheName) {
-                        console.log('Service Worker: Suppression du vieux cache', cache);
                         return caches.delete(cache);
                     }
                 })
@@ -38,20 +42,17 @@ self.addEventListener('activate', e => {
     );
 });
 
-// 4. Stratégie de réseau : Récupération depuis le cache
+// Fetch : Stratégie Cache First (Cache en priorité)
 self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request).then(response => {
-            // Retourne le fichier du cache s'il existe, sinon fait une requête réseau
             return response || fetch(e.request);
         })
     );
 });
 
-// 5. Gestion des notifications (clic sur la notification)
+// Clic sur notification
 self.addEventListener('notificationclick', e => {
     e.notification.close();
-    e.waitUntil(
-        clients.openWindow('/') // Ouvre votre application lors du clic
-    );
+    e.waitUntil(clients.openWindow('/'));
 });
