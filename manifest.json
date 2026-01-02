@@ -1,6 +1,6 @@
 {
   "name": "Ma Super Application PWA",
-  "short_name": "MaApp",
+  "short_name": "MaPWA",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
