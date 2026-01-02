@@ -1,5 +1,5 @@
 // 1. Nom du cache et fichiers à mettre en cache
-const cacheName = 'v2'; // Changez ceci en 'v2', 'v3', etc. pour forcer la mise à jour
+const cacheName = 'v1'; // Changez ceci en 'v2', 'v3', etc. pour forcer la mise à jour
 const cacheAssets = [
     'index.html',
     'app.js',
