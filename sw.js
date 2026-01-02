@@ -1,10 +1,7 @@
 /**
  * SW.JS - Service Worker (Gestion du Cache)
  */
-
-// CHANGEZ LA VERSION ICI À CHAQUE MODIFICATION (ex: v1, v2, v3...)
-const cacheName = 'v1'; 
-
+const cacheName = 'v1';
 const cacheAssets = [
     'index.html',
     'app.js',
@@ -14,11 +11,9 @@ const cacheAssets = [
     'images/icon.png'
 ];
 
-// Installation : Téléchargement des fichiers
+// Installation
 self.addEventListener('install', e => {
-    console.log('SW: Installation...');
-    // Force le nouveau SW à prendre le contrôle immédiatement
-    self.skipWaiting(); 
+    self.skipWaiting();
     e.waitUntil(
         caches.open(cacheName).then(cache => {
             return cache.addAll(cacheAssets);
@@ -26,9 +21,8 @@ self.addEventListener('install', e => {
     );
 });
 
-// Activation : Nettoyage des vieux caches
+// Activation (Nettoyage)
 self.addEventListener('activate', e => {
-    console.log('SW: Activation et nettoyage...');
     e.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
@@ -42,17 +36,11 @@ self.addEventListener('activate', e => {
     );
 });
 
-// Fetch : Stratégie Cache First (Cache en priorité)
+// Récupération des fichiers
 self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request).then(response => {
             return response || fetch(e.request);
         })
     );
-});
-
-// Clic sur notification
-self.addEventListener('notificationclick', e => {
-    e.notification.close();
-    e.waitUntil(clients.openWindow('/'));
 });
